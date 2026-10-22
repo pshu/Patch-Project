@@ -1,0 +1,28 @@
+{
+  "missions": [
+    {
+      "id": "sts-51-l",
+      "title": "STS-51-L",
+      "subtitle": "Space Shuttle Challenger",
+      "fields": [
+        { "label": "DATE", "value": "January 28, 1986, 11:38:00 a.m. EST (16:38:00 UTC)" },
+        { "label": "VEHICLE", "value": "Space Shuttle Challenger (OV-099), 10th flight; SRB set BI-026, External Tank ET-26 (LWT-19)" },
+        { "label": "LAUNCH PAD", "value": "Kennedy Space Center Launch Complex 39B" },
+        { "label": "RECOVERY", "value": "None. Orbiter destroyed 73 seconds after liftoff; debris salvaged at sea by U.S. Navy and Coast Guard, February to August 1986" },
+        { "label": "PAYLOAD", "value": "TDRS-B (TDRS-2) with Inertial Upper Stage; SPARTAN-203 Halley's Comet experiment; Teacher in Space Project" }
+      ]
+    },
+    {
+      "id": "lightsail-2",
+      "title": "LightSail 2",
+      "subtitle": "The Planetary Society / Falcon Heavy STP-2",
+      "fields": [
+        { "label": "DATE", "value": "June 25, 2019, 2:30 a.m. EDT (06:30 UTC)" },
+        { "label": "VEHICLE", "value": "SpaceX Falcon Heavy (STP-2); side boosters B1052 and B1053 (flight 2 each), center core B1057 (flight 1, not recovered)" },
+        { "label": "LAUNCH PAD", "value": "Kennedy Space Center Launch Complex 39A" },
+        { "label": "RECOVERY", "value": "Side boosters landed at LZ-1 (B1052) and LZ-2 (B1053); center core B1057 lost during drone ship landing attempt on Of Course I Still Love You" },
+        { "label": "PAYLOAD", "value": "LightSail 2 solar sail CubeSat, deployed from the Georgia Tech Prox-1 satellite; 24 spacecraft total on STP-2, including COSMIC-2, GPIM and the Deep Space Atomic Clock" }
+      ]
+    }
+  ]
+}

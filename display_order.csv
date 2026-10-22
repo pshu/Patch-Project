@@ -1,0 +1,54 @@
+order,group_order,group,id,title,date
+1,1,Heritage,STS-51L,STS-51L,1986-01-28
+2,1,Heritage,LIGHTSAIL-2,LIGHTSAIL 2,2019-06-25
+3,2,Crew Dragon,CREW-9,CREW-9,2024-09-28
+4,2,Crew Dragon,CREW-10,CREW-10,2025-03-14
+5,2,Crew Dragon,FRAM2,FRAM2,2025-03-31
+6,2,Crew Dragon,AX-4,AX-4,2025-06-25
+7,2,Crew Dragon,CREW-11,CREW-11,2025-08-01
+8,3,Cargo,CRS-31,CRS-31,2024-11-04
+9,3,Cargo,CRS-32,CRS-32,2025-04-21
+10,3,Cargo,NG-23,NG-23,2025-09-14
+11,3,Cargo,CRS-34,CRS-34,2026-05-15
+12,4,Rideshare,TRANSPORTER-13,TRANSPORTER-13,2025-03-14
+13,4,Rideshare,BANDWAGON-3,BANDWAGON-3,2025-04-21
+14,4,Rideshare,TRANSPORTER-17,TRANSPORTER-17,2026-07-07
+15,5,National security,GPS-III-10,GPS III-10,2024-12-16
+16,5,National security,NROL-69,NROL-69,2025-03-24
+17,5,National security,GPS-III-7,GPS III-7,2025-05-30
+18,5,National security,USSF-36,USSF-36,2025-08-21
+19,5,National security,NAOS,NAOS,2025-08-26
+20,5,National security,T1TL-B,SDA TRANCHE 1 TRANSPORT LAYER B,2025-09-10
+21,5,National security,T1TL-C,SDA TRANCHE 1 TRANSPORT LAYER C,2025-10-15
+22,5,National security,GPS-III-9,GPS III-9,2026-01-27
+23,5,National security,GPS-III-8,GPS III-8,2026-04-21
+24,5,National security,T1TL-E,SDA TRANCHE 1 TRANSPORT LAYER E,2026-07-16
+25,5,National security,NROL-95,NROL-95,2026-07-30
+26,6,Commercial and international satellites,SXM-9,SIRIUS SXM-9,2024-12-05
+27,6,Commercial and international satellites,ASTRANIS-FOTM,ASTRANIS,2024-12-29
+28,6,Commercial and international satellites,MAXAR-3,MAXAR 3,2025-02-04
+29,6,Commercial and international satellites,MTG-S1,MTG-S1,2025-07-01
+30,6,Commercial and international satellites,DROR-1,DROR-1,2025-07-13
+31,6,Commercial and international satellites,KF-01,AMAZON KF-01,2025-07-16
+32,6,Commercial and international satellites,KF-02,AMAZON KF-02,2025-08-11
+33,6,Commercial and international satellites,PSN-N5,NUSANTARA LIMA,2025-09-11
+34,6,Commercial and international satellites,KF-03,AMAZON KF-03,2025-10-13
+35,6,Commercial and international satellites,SPAINSAT-NG-II,SPAINSAT NG II,2025-10-23
+36,6,Commercial and international satellites,CSG-FM3,CSG-FM3,2026-01-02
+37,6,Commercial and international satellites,VIASAT-3-F3,VIASAT-3 F3,2026-04-29
+38,6,Commercial and international satellites,BLUEBIRD-8-10,BLUEBIRD 8-10,2026-06-17
+39,6,Commercial and international satellites,SXM-11,SXM-11,2026-06-28
+40,6,Commercial and international satellites,MRV-1,MRV-1,2026-07-21
+41,7,Science and lunar,BLUE-GHOST-M1,BLUE GHOST M1,2025-01-15
+42,7,Science and lunar,IM-2,IM-2,2025-02-26
+43,7,Science and lunar,SPHEREX-PUNCH,SPHEREX / PUNCH,2025-03-11
+44,7,Science and lunar,TRACERS,NASA TRACERS,2025-07-23
+45,7,Science and lunar,IMAP,NASA IMAP,2025-09-24
+46,8,Starship,STARSHIP-F5,STARSHIP FLIGHT 5,2024-10-13
+47,8,Starship,STARSHIP-F6,STARSHIP FLIGHT 6,2024-11-19
+48,8,Starship,STARSHIP-F7,STARSHIP FLIGHT 7,2025-01-16
+49,8,Starship,STARSHIP-F8,STARSHIP FLIGHT 8,2025-03-06
+50,8,Starship,STARSHIP-F10,STARSHIP FLIGHT 10,2025-08-26
+51,8,Starship,STARSHIP-2025,STARSHIP 2025,2025-10-13
+52,8,Starship,STARSHIP-F13,STARSHIP FLIGHT 13,2026-07-24
+53,9,Commemorative,SPCX-LIFTOFF-2026,SPCX LIFTOFF,2026-06-12
