@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
-"""Render white-on-black 5 x 7 in (landscape, 300 dpi) mission cards.
+"""Render white-on-black (or, with --white, black-on-white) 5 x 7 in
+(landscape, 300 dpi) mission cards.
 
 Usage:
     python3 make_cards.py missions.json [--out cards] [--only ID ...]
-                          [--no-guide]
+                          [--no-guide] [--white]
 
 Requires: Pillow (pip install pillow)
 
 Schema per mission: id, title, subtitle (optional), patch (optional
-width_in/height_in), booster (optional: id, flight), fields (label/value).
+width_in/height_in, shape: rect/round/diamond), booster (optional: id, flight), fields (label/value).
 When "booster" is present a BOOSTER field ("B1093 - Flight 6") is inserted
 directly after the VEHICLE field, or first if there is no VEHICLE field.
 Text is scaled down automatically (floor MIN_SCALE) if a card overflows.
@@ -25,7 +26,9 @@ from PIL import Image, ImageDraw, ImageFont
 DPI = 300
 W, H = 7 * DPI, 5 * DPI
 SAFE = int(0.30 * DPI)
-BLACK, WHITE, GRAY = (0, 0, 0), (255, 255, 255), (150, 150, 150)
+BG, FG, GRAY = (0, 0, 0), (255, 255, 255), (150, 150, 150)  # background, text, labels/guide
+WHITE_COLORS = (255, 255, 255), (0, 0, 0), (110, 110, 110)  # --white
+SHAPES = ("rect", "round", "diamond")
 DEFAULT_PATCH = {"width_in": 1.9, "height_in": 2.6}
 MIN_SCALE = 0.75
 SCALE_STEP = 0.025
@@ -53,20 +56,6 @@ def load_font(candidates, size):
     return ImageFont.load_default()
 
 
-def wrap(draw, text, font, max_w):
-    lines, cur = [], ""
-    for word in text.split():
-        trial = f"{cur} {word}".strip()
-        if draw.textlength(trial, font=font) <= max_w:
-            cur = trial
-        else:
-            lines.append(cur)
-            cur = word
-    if cur:
-        lines.append(cur)
-    return lines
-
-
 def validate(mission, index):
     errors = []
     for key in ("id", "title", "fields"):
@@ -78,6 +67,9 @@ def validate(mission, index):
             errors.append(f"missions[{index}].booster: needs id and flight")
         elif not isinstance(booster["flight"], int) or booster["flight"] < 1:
             errors.append(f"missions[{index}].booster.flight: positive integer")
+    shape = mission.get("patch", {}).get("shape", "rect")
+    if shape not in SHAPES:
+        errors.append(f"missions[{index}].patch.shape: one of {', '.join(SHAPES)}")
     for j, field in enumerate(mission.get("fields", [])):
         if "label" not in field or "value" not in field:
             errors.append(f"missions[{index}].fields[{j}]: needs label and value")
@@ -102,7 +94,7 @@ def render(mission, show_guide, scale=1.0, mode="land"):
     portrait = mode == "portrait"
     stack = mode == "stack"
     cw, ch = (H, W) if portrait else (W, H)
-    img = Image.new("RGB", (cw, ch), BLACK)
+    img = Image.new("RGB", (cw, ch), BG)
     d = ImageDraw.Draw(img)
 
     f_title = load_font(BOLD, int(15 * scale * DPI / 72))
@@ -162,7 +154,7 @@ def render(mission, show_guide, scale=1.0, mode="land"):
         """One left edge for a block of (text, font, step) parts starting at y0."""
         lx = line_x(y0, y0 + 1)
         for _ in range(4):
-            h, yy = 0, y0
+            h = 0
             for text, font, step in parts:
                 h += nlines(text, font, lx) * int(font.size * step)
             nx = line_x(y0, y0 + h)
@@ -190,9 +182,9 @@ def render(mission, show_guide, scale=1.0, mode="land"):
         head.append((mission["subtitle"], f_sub, 1.25))
     hx = block_x(y, head + [("x", f_sub, 0.6)]) if shape != "rect" else x
     for text, font, step in head:
-        put(text, font, WHITE, step, hx)
+        put(text, font, FG, step, hx)
     y += int(f_sub.size * 0.25) if mission.get("subtitle") else 0
-    d.line([(hx, y), (cw - SAFE if shape != "rect" else hx + max_w, y)], fill=WHITE, width=3)
+    d.line([(hx, y), (cw - SAFE if shape != "rect" else hx + max_w, y)], fill=FG, width=3)
     y += int(0.15 * DPI)
 
     for field in build_fields(mission):
@@ -200,7 +192,7 @@ def render(mission, show_guide, scale=1.0, mode="land"):
         lx = block_x(y, parts) if shape != "rect" else x
         d.text((lx, y), field["label"], font=f_label, fill=GRAY)
         y += int(f_label.size * 1.3)
-        put(field["value"], f_value, WHITE, 1.25, lx)
+        put(field["value"], f_value, FG, 1.25, lx)
         y += int(0.10 * scale * DPI)
 
     over = max(0, y - (ch - SAFE)) + max(0, h_over)
@@ -231,13 +223,21 @@ def render_fit(mission, show_guide):
 
 
 def main():
+    global BG, FG, GRAY
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("data", type=Path, help="path to missions JSON")
-    ap.add_argument("--out", type=Path, default=Path("cards"))
+    ap.add_argument("--out", type=Path,
+                    help="output folder (default: cards, or white-cards with --white)")
     ap.add_argument("--only", nargs="*", help="render only these mission ids")
     ap.add_argument("--no-guide", action="store_true",
                     help="omit the patch outline (use for final prints)")
+    ap.add_argument("--white", action="store_true",
+                    help="black text on a white background")
     args = ap.parse_args()
+    if args.white:
+        BG, FG, GRAY = WHITE_COLORS
+    if args.out is None:
+        args.out = Path("white-cards" if args.white else "cards")
 
     missions = json.loads(args.data.read_text(encoding="utf-8"))["missions"]
 
